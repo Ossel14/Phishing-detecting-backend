@@ -1,6 +1,24 @@
-venv/
+# Python
 __pycache__/
 *.pyc
-*.joblib
-.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment files
 .env
+
+# System / cache / trash
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# FastAPI or ML
+models/
+data/
+

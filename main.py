@@ -62,9 +62,19 @@ def extract_url_features(url: str):
 @app.post("/predict/email")
 def predict_email(data: EmailInput):
     text = data.subject + " " + data.body
+    
     X = email_tfidf.transform([text])
-    prediction = email_model.predict(X)[0]
-    return {"email_phishing": bool(prediction)}
+
+    # Prediction (0 or 1)
+    prediction = int(email_model.predict(X)[0])
+
+    # Probability for phishing class (class 1)
+    probability = float(email_model.predict_proba(X)[0][1])
+
+    return {
+        "email_phishing": bool(prediction),
+        "confidence": round(probability, 3)
+    }
 
 # -----------------------------
 # URL PREDICTION ENDPOINT
@@ -78,6 +88,10 @@ def predict_url(data: URLInput):
 
     X = hstack([tfidf_vector, lexical])
 
-    prediction = url_model.predict(X)[0]
-    return {"url_phishing": bool(prediction)}
+    prediction = int(url_model.predict(X)[0])
+    probability = float(url_model.predict_proba(X)[0][1])
 
+    return {
+        "url_phishing": bool(prediction),
+        "confidence": round(probability, 3)
+    }
