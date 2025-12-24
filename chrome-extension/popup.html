@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Detector</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      border-radius: 0;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #667eea;
+      margin-top: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: #e8e8e8;
+    }
+
+    .result {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 8px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result.safe {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+    }
+
+    .result.danger {
+      background: #ffebee;
+      border: 2px solid #f44336;
+    }
+
+    .result-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .result.safe .result-title {
+      color: #2e7d32;
+    }
+
+    .result.danger .result-title {
+      color: #c62828;
+    }
+
+    .result-text {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .confidence {
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 12px;
+      color: #667eea;
+      font-size: 13px;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .divider {
+      height: 1px;
+      background: #e0e0e0;
+      margin: 20px 0;
+    }
+
+    .settings {
+      padding: 16px 20px;
+      background: #f9f9f9;
+    }
+
+    .settings-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .settings input {
+      font-size: 12px;
+      padding: 8px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🛡️ Phishing Detector</h1>
+      <p>AI-powered email and URL protection</p>
+    </div>
+
+    <div class="content">
+      <!-- Email Section -->
+      <div class="section">
+        <div class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          Check Email
+        </div>
+        <div class="input-group">
+          <label for="emailSubject">Subject</label>
+          <input type="text" id="emailSubject" placeholder="Enter email subject...">
+        </div>
+        <div class="input-group">
+          <label for="emailBody">Body</label>
+          <textarea id="emailBody" placeholder="Enter email body..."></textarea>
+        </div>
+        <button class="btn btn-primary" id="checkEmailBtn">
+          <span>🔍 Check Email</span>
+        </button>
+        <button class="btn btn-secondary" id="extractEmailBtn">
+          <span>📧 Extract from Current Page</span>
+        </button>
+        <div class="result" id="emailResult"></div>
+        <div class="loading" id="emailLoading">
+          <div class="spinner"></div>
+          <p>Analyzing email...</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- URL Section -->
+      <div class="section">
+        <div class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+          </svg>
+          Check URL
+        </div>
+        <div class="input-group">
+          <label for="urlInput">URL</label>
+          <input type="text" id="urlInput" placeholder="Enter URL to check...">
+        </div>
+        <button class="btn btn-primary" id="checkUrlBtn">
+          <span>🔍 Check URL</span>
+        </button>
+        <button class="btn btn-secondary" id="checkCurrentUrlBtn">
+          <span>🌐 Check Current Page URL</span>
+        </button>
+        <div class="result" id="urlResult"></div>
+        <div class="loading" id="urlLoading">
+          <div class="spinner"></div>
+          <p>Analyzing URL...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings">
+      <div class="settings-title">Settings</div>
+      <input type="text" id="apiEndpoint" placeholder="http://localhost:8000" style="margin-bottom: 10px;">
+      <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px;">
+        <input type="checkbox" id="autoProtection" checked style="width: auto; cursor: pointer;">
+        <span>🛡️ Enable Automatic Protection (check all links)</span>
+      </label>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

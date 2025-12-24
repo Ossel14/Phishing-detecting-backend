@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+
+from fastapi.middleware.cors import CORSMiddleware
+
 from pydantic import BaseModel
 import joblib
 import tldextract
@@ -8,6 +11,14 @@ from scipy.sparse import hstack
 import numpy as np
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],      # allow all origins (DEV only)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # -----------------------------
 # LOAD YOUR MODELS

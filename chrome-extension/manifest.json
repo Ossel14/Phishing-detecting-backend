@@ -1,29 +1,39 @@
 {
   "manifest_version": 3,
-  "name": "Local Phishing Detector",
-  "version": "1.0",
-  "description": "Detect phishing URLs and emails using local ML models",
-
+  "name": "Phishing Detector",
+  "version": "1.0.0",
+  "description": "Detects phishing emails and malicious URLs using AI",
   "permissions": [
-    "tabs",
     "activeTab",
-    "scripting",
-    "webNavigation"
+    "storage",
+    "tabs",
+    "notifications",
+    "contextMenus"
   ],
-
   "host_permissions": [
-    "<all_urls>",
-    "http://127.0.0.1:8000/*"
+    "<all_urls>"
   ],
-
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
   "background": {
     "service_worker": "background.js"
   },
-
   "content_scripts": [
     {
-      "matches": ["https://mail.google.com/*"],
-      "js": ["content_email.js"]
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
     }
-  ]
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
 }
