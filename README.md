@@ -18,7 +18,7 @@ Modèles ML  ⇄  Backend FastAPI (localhost:8000)  ⇄  Extension Chrome
 
 ## ✨ Fonctionnalités
 
-- ✅ Détection automatique d'e-mails de phishing (Accuracy: ~96.8%)
+- ✅ Détection automatique d'e-mails de phishing (Accuracy: ~91.8%)
 - ✅ Détection d'URLs malveillantes (Accuracy: ~93.5%)
 - ✅ Protection en temps réel lors de la navigation
 - ✅ Extraction automatique d'e-mails depuis Gmail/Outlook/Yahoo
@@ -167,7 +167,7 @@ Créer 3 fichiers PNG dans `extension/icons/` : `icon16.png`, `icon48.png`, `ico
 
 | Modèle | Accuracy | Precision | Recall | F1-Score |
 |--------|----------|-----------|--------|----------|
-| E-mail | 90.8% | 91.2% | 92.7% | 90.9% |
+| E-mail | 91.8% | 91.2% | 92.7% | 90.9% |
 | URL | 93.5% | 91.8% | 92.3% | 92.0% |
 
 ## 🚀 Améliorations Futures
@@ -188,8 +188,7 @@ Les contributions sont bienvenues ! Forkez le projet, créez une branche, et sou
 Ce projet est sous licence MIT.
 
 ## 👨‍💻 Auteur
-
-**Votre Nom**  
+ 
 GitHub: [@Ossama Elmessaoudi](https://github.com/Ossel14)
 
 ---
