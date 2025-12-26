@@ -167,7 +167,7 @@ Créer 3 fichiers PNG dans `extension/icons/` : `icon16.png`, `icon48.png`, `ico
 
 | Modèle | Accuracy | Precision | Recall | F1-Score |
 |--------|----------|-----------|--------|----------|
-| E-mail | 91.8% | 91.2% | 92.7% | 90.9% |
+| E-mail | 96.8% | 95.2% | 94.7% | 94.9% |
 | URL | 93.5% | 91.8% | 92.3% | 92.0% |
 
 ## 🚀 Améliorations Futures
