@@ -18,7 +18,7 @@ Modèles ML  ⇄  Backend FastAPI (localhost:8000)  ⇄  Extension Chrome
 
 ## ✨ Fonctionnalités
 
-- ✅ Détection automatique d'e-mails de phishing (Accuracy: ~91.8%)
+- ✅ Détection automatique d'e-mails de phishing (Accuracy: ~96.8%)
 - ✅ Détection d'URLs malveillantes (Accuracy: ~93.5%)
 - ✅ Protection en temps réel lors de la navigation
 - ✅ Extraction automatique d'e-mails depuis Gmail/Outlook/Yahoo
